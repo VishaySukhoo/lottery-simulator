@@ -1,13 +1,14 @@
 package co.za.lottery.lotterysimulator.service;
 
 import co.za.lottery.lotterysimulator.data.Powerball;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-
+@Service
 public class PowerballService {
     public static ArrayList<Powerball> generateRandomNumbers() {
         Random objGenerator = new Random();
@@ -25,7 +26,7 @@ public class PowerballService {
         return numsList;
     }
 
-    public static ArrayList<Integer> buildCommonList(ArrayList<Powerball> powerballs) {
+    public ArrayList<Integer> buildCommonList(ArrayList<Powerball> powerballs) {
         ArrayList<Integer> num1s = new ArrayList<>();
         ArrayList<Integer> num2s = new ArrayList<>();
         ArrayList<Integer> num3s = new ArrayList<>();
@@ -56,20 +57,15 @@ public class PowerballService {
         finalList.add(com5);
         finalList.add(comBonus);
 
-//        Collections.sort(finalList);
         return finalList;
 
     }
 
-    private static Integer getMode(ArrayList<Integer> nums) {
+    private Integer getMode(ArrayList<Integer> nums) {
         return nums.stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream().max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey).orElse(null);
     }
 
-    public static void main(String[] args) {
-        ArrayList<Powerball> data = generateRandomNumbers();
-        System.out.println(buildCommonList(data));
-    }
 }

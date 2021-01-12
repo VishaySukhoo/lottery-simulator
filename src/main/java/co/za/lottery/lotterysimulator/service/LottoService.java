@@ -1,6 +1,7 @@
 package co.za.lottery.lotterysimulator.service;
 
 import co.za.lottery.lotterysimulator.data.Numbers;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -8,8 +9,9 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Service
 public class LottoService {
-    public static ArrayList<Numbers> generateRandomNumbers() {
+    public ArrayList<Numbers> generateRandomNumbers() {
         Random objGenerator = new Random();
         ArrayList<Numbers> numsList = new ArrayList<>();
         for (int i = 0; i <= 31474839; i++) {
@@ -26,7 +28,7 @@ public class LottoService {
         return numsList;
     }
 
-    public static ArrayList<Integer> buildCommonList(ArrayList<Numbers> numbers) {
+    public ArrayList<Integer> buildCommonList(ArrayList<Numbers> numbers) {
         ArrayList<Integer> num1s = new ArrayList<>();
         ArrayList<Integer> num2s = new ArrayList<>();
         ArrayList<Integer> num3s = new ArrayList<>();
@@ -64,15 +66,10 @@ public class LottoService {
 
     }
 
-    private static Integer getMode(ArrayList<Integer> nums) {
+    private Integer getMode(ArrayList<Integer> nums) {
         return nums.stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream().max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey).orElse(null);
-    }
-
-    public static void main(String[] args) {
-        ArrayList<Numbers> data = generateRandomNumbers();
-        System.out.println(buildCommonList(data));
     }
 }

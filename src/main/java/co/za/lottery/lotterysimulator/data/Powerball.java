@@ -1,4 +1,4 @@
-package co.za.lottery.lotterysimulator;
+package co.za.lottery.lotterysimulator.data;
 
 import lombok.Data;
 
